@@ -24,16 +24,12 @@ describe('CustomChartTypes', () => {
       timeframe: 'D',
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:BTCEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:BTCEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:BTCEUR');
     expect(chart.periods.length).toBe(100);
-    expect(
-      utils.calculateTimeGap(chart.periods),
-    ).toBe(86400);
+    expect(utils.calculateTimeGap(chart.periods)).toBe(86400);
   });
 
   it('sets chart type to Renko', async () => {
@@ -52,10 +48,8 @@ describe('CustomChartTypes', () => {
       },
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:ETHEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:ETHEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:ETHEUR');
   });
@@ -72,10 +66,8 @@ describe('CustomChartTypes', () => {
       },
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:BTCEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:BTCEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:BTCEUR');
     expect(chart.periods.length).toBeGreaterThan(0);
@@ -95,10 +87,8 @@ describe('CustomChartTypes', () => {
       },
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:ETHEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:ETHEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:ETHEUR');
     expect(chart.periods.length).toBeGreaterThan(0);
@@ -120,10 +110,8 @@ describe('CustomChartTypes', () => {
       },
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:BTCEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:BTCEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:BTCEUR');
     expect(chart.periods.length).toBeGreaterThan(0);
@@ -141,10 +129,8 @@ describe('CustomChartTypes', () => {
       },
     });
 
-    while (
-      chart.infos.full_name !== 'BINANCE:ETHEUR'
-      || !chart.periods.length
-    ) await utils.wait(100);
+    while (chart.infos.full_name !== 'BINANCE:ETHEUR' || !chart.periods.length)
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:ETHEUR');
     expect(chart.periods.length).toBeGreaterThanOrEqual(99);

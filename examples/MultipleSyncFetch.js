@@ -24,11 +24,13 @@ function getIndicData(indicator) {
 (async () => {
   console.log('Getting all indicators...');
 
-  const indicData = await Promise.all([
-    await TradingView.getIndicator('PUB;3lEKXjKWycY5fFZRYYujEy8fxzRRUyF3'),
-    await TradingView.getIndicator('PUB;5nawr3gCESvSHQfOhrLPqQqT4zM23w3X'),
-    await TradingView.getIndicator('PUB;vrOJcNRPULteowIsuP6iHn3GIxBJdXwT'),
-  ].map(getIndicData));
+  const indicData = await Promise.all(
+    [
+      await TradingView.getIndicator('PUB;3lEKXjKWycY5fFZRYYujEy8fxzRRUyF3'),
+      await TradingView.getIndicator('PUB;5nawr3gCESvSHQfOhrLPqQqT4zM23w3X'),
+      await TradingView.getIndicator('PUB;vrOJcNRPULteowIsuP6iHn3GIxBJdXwT'),
+    ].map(getIndicData),
+  );
 
   console.log(indicData);
   console.log('All done !');

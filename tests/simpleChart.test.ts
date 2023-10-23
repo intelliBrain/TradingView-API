@@ -22,14 +22,13 @@ describe('Simple chart session', async () => {
     });
 
     while (
-      chart.infos.full_name !== 'BINANCE:BTCEUR'
-      || chart.periods.length < 10
-    ) await utils.wait(100);
+      chart.infos.full_name !== 'BINANCE:BTCEUR' ||
+      chart.periods.length < 10
+    )
+      await utils.wait(100);
 
     expect(chart.infos.full_name).toBe('BINANCE:BTCEUR');
-    expect(
-      utils.calculateTimeGap(chart.periods),
-    ).toBe(24 * 60 * 60);
+    expect(utils.calculateTimeGap(chart.periods)).toBe(24 * 60 * 60);
   });
 
   it('sets timeframe', async () => {
@@ -42,9 +41,7 @@ describe('Simple chart session', async () => {
     while (chart.periods.length < 10) await utils.wait(100);
     console.log('Chart timeframe set');
 
-    expect(
-      utils.calculateTimeGap(chart.periods),
-    ).toBe(15 * 60);
+    expect(utils.calculateTimeGap(chart.periods)).toBe(15 * 60);
   });
 
   it('sets chart type', async () => {

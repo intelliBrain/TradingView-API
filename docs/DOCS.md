@@ -1,3 +1,3 @@
 # Documentation
 
-### All the project is now JSDoc-ed :)
+## All the project is now JSDoc-ed :)

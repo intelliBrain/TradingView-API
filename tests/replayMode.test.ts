@@ -61,9 +61,7 @@ describe('ReplayMode', () => {
       });
     });
 
-    expect(
-      utils.calculateTimeGap(chart.periods),
-    ).toBe(24 * 60 * 60);
+    expect(utils.calculateTimeGap(chart.periods)).toBe(24 * 60 * 60);
 
     expect(chart.periods.length).toBeGreaterThanOrEqual(9);
     expect(chart.periods.length).toBeLessThanOrEqual(11);
@@ -101,9 +99,7 @@ describe('ReplayMode', () => {
       });
     });
 
-    expect(
-      utils.calculateTimeGap(chart.periods),
-    ).toBe(24 * 60 * 60);
+    expect(utils.calculateTimeGap(chart.periods)).toBe(24 * 60 * 60);
 
     expect(chart.periods.length).toBeGreaterThanOrEqual(9);
     expect(chart.periods.length).toBeLessThanOrEqual(11);

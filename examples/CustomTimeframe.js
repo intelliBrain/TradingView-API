@@ -4,7 +4,7 @@ const TradingView = require('../main');
  * This example tests custom timeframes like 1 second
  */
 
-if (!process.argv[2]) throw Error('Please specify your \'sessionid\' cookie');
+if (!process.argv[2]) throw Error("Please specify your 'sessionid' cookie");
 
 const client = new TradingView.Client({
   token: process.argv[2],

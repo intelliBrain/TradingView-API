@@ -5,11 +5,12 @@ const token = process.env.SESSION as string;
 const signature = process.env.SIGNATURE as string;
 
 describe('AllErrors', () => {
-  const waitForError = (instance: any) => new Promise<string[]>((resolve) => {
-    instance.onError((...error: string[]) => {
-      resolve(error);
+  const waitForError = (instance: any) =>
+    new Promise<string[]>((resolve) => {
+      instance.onError((...error: string[]) => {
+        resolve(error);
+      });
     });
-  });
 
   it('throws an error when an invalid token is set', async () => {
     console.log('Testing "Credentials error" error:');
@@ -69,7 +70,8 @@ describe('AllErrors', () => {
     const client = new TradingView.Client();
     const chart = new client.Session.Chart();
 
-    chart.setMarket('BINANCE:BTCEUR', { // Set a market
+    chart.setMarket('BINANCE:BTCEUR', {
+      // Set a market
       // @ts-expect-error
       timeframe: '20', // Set a custom timeframe
       /*
@@ -93,7 +95,8 @@ describe('AllErrors', () => {
     const client = new TradingView.Client();
     const chart = new client.Session.Chart();
 
-    chart.setMarket('BINANCE:BTCEUR', { // Set a market
+    chart.setMarket('BINANCE:BTCEUR', {
+      // Set a market
       // @ts-expect-error
       timeframe: 'XX', // Set an invalid timeframe
     });
@@ -104,7 +107,9 @@ describe('AllErrors', () => {
     expect(error).toBeDefined();
     expect(error[0]).toBe('Critical error:');
     expect(error[1]).toBe('invalid parameters');
-    expect(error[2]).toBe('method: create_series. args: "[$prices, s1, ser_1, XX, 100]"');
+    expect(error[2]).toBe(
+      'method: create_series. args: "[$prices, s1, ser_1, XX, 100]"',
+    );
     expect(error.length).toBe(3);
   });
 
@@ -114,7 +119,8 @@ describe('AllErrors', () => {
     const client = new TradingView.Client();
     const chart = new client.Session.Chart();
 
-    chart.setMarket('BINANCE:BTCEUR', { // Set a market
+    chart.setMarket('BINANCE:BTCEUR', {
+      // Set a market
       timeframe: '15',
       type: 'Renko',
     });
@@ -149,9 +155,9 @@ describe('AllErrors', () => {
   it('throws an error when getting a non-existent indicator', async () => {
     console.log('Testing "Inexistent indicator" error:');
 
-    expect(
-      TradingView.getIndicator('STD;XXXXXXX'),
-    ).rejects.toThrow('Inexistent or unsupported indicator: "undefined"');
+    expect(TradingView.getIndicator('STD;XXXXXXX')).rejects.toThrow(
+      'Inexistent or unsupported indicator: "undefined"',
+    );
   });
 
   it('throws an error when setting an invalid study option value', async () => {
@@ -167,7 +173,7 @@ describe('AllErrors', () => {
 
     const Supertrend = new chart.Study(ST);
 
-    const error = await waitForError(Supertrend) as any;
+    const error = (await waitForError(Supertrend)) as any;
     console.log('=> Study error:', error);
 
     expect(error).toEqual([
@@ -177,9 +183,10 @@ describe('AllErrors', () => {
           nameInvalidValue: 'factor',
           bar_index: 0,
           operation: '>',
-          funName: '\'supertrend\'',
+          funName: "'supertrend'",
         },
-        error: 'Error on bar {bar_index}: Invalid value of the \'{nameInvalidValue}\' argument ({length}) in the \'{funName}\' function. It must be {operation} 0.',
+        error:
+          "Error on bar {bar_index}: Invalid value of the '{nameInvalidValue}' argument ({length}) in the '{funName}' function. It must be {operation} 0.",
       },
       'undefined',
     ]);
@@ -187,49 +194,55 @@ describe('AllErrors', () => {
     console.log('OK');
   });
 
-  it.skipIf(
-    !token || !signature,
-  )('throws an error when getting user data without signature', async () => {
-    console.log('Testing "Wrong or expired sessionid/signature" error using getUser method:');
+  it.skipIf(!token || !signature)(
+    'throws an error when getting user data without signature',
+    async () => {
+      console.log(
+        'Testing "Wrong or expired sessionid/signature" error using getUser method:',
+      );
 
-    console.log('Trying with signaure');
-    const userInfo = await TradingView.getUser(token, signature);
+      console.log('Trying with signaure');
+      const userInfo = await TradingView.getUser(token, signature);
 
-    console.log('Result:', {
-      id: userInfo.id,
-      username: userInfo.username,
-      firstName: userInfo.firstName,
-      lastName: userInfo.lastName,
-      following: userInfo.following,
-      followers: userInfo.followers,
-      notifications: userInfo.notifications,
-      joinDate: userInfo.joinDate,
-    });
+      console.log('Result:', {
+        id: userInfo.id,
+        username: userInfo.username,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        following: userInfo.following,
+        followers: userInfo.followers,
+        notifications: userInfo.notifications,
+        joinDate: userInfo.joinDate,
+      });
 
-    expect(userInfo).toBeDefined();
-    expect(userInfo.id).toBeDefined();
+      expect(userInfo).toBeDefined();
+      expect(userInfo.id).toBeDefined();
 
-    console.log('Trying without signaure');
-    expect(
-      TradingView.getUser(token),
-    ).rejects.toThrow('Wrong or expired sessionid/signature');
+      console.log('Trying without signaure');
+      expect(TradingView.getUser(token)).rejects.toThrow(
+        'Wrong or expired sessionid/signature',
+      );
 
-    console.log('OK');
-  });
+      console.log('OK');
+    },
+  );
 
-  it.skipIf(
-    !token || !signature,
-  )('throws an error when creating an authenticated client without signature', async () => {
-    console.log('Testing "Wrong or expired sessionid/signature" error using client:');
+  it.skipIf(!token || !signature)(
+    'throws an error when creating an authenticated client without signature',
+    async () => {
+      console.log(
+        'Testing "Wrong or expired sessionid/signature" error using client:',
+      );
 
-    const client = new TradingView.Client({ token });
+      const client = new TradingView.Client({ token });
 
-    const error = await waitForError(client);
-    console.log('=> Client error:', error);
+      const error = await waitForError(client);
+      console.log('=> Client error:', error);
 
-    expect(error).toBeDefined();
-    expect(error[0]).toBe('Credentials error:');
-    expect(error[1]).toBe('Wrong or expired sessionid/signature');
-    expect(error.length).toBe(2);
-  });
+      expect(error).toBeDefined();
+      expect(error[0]).toBe('Credentials error:');
+      expect(error[1]).toBe('Wrong or expired sessionid/signature');
+      expect(error.length).toBe(2);
+    },
+  );
 });

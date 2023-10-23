@@ -81,7 +81,9 @@ async function addIndicator(name, pineId, options = {}) {
   const indic = pineId.includes('@')
     ? new TradingView.BuiltInIndicator(pineId)
     : await TradingView.getIndicator(pineId);
-  Object.keys(options).forEach((o) => { indic.setOption(o, options[o]); });
+  Object.keys(options).forEach((o) => {
+    indic.setOption(o, options[o]);
+  });
 
   const std = new chart.Study(indic);
 

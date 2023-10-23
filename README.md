@@ -13,7 +13,7 @@ Get realtime market prices and indicator values from Tradingview !
 
 👉 To get help, exchange tips, find collaborators, developers, missions, etc...
 
-Here is the Telegram group of the library: https://t.me/tradingview_api
+Here is the Telegram group of the library: <https://t.me/tradingview_api>
 
 ## Features
 

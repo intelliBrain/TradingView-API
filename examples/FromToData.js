@@ -13,7 +13,6 @@ chart.setMarket('BINANCE:BTCEUR', {
   range: 2, // Can be positive to get before or negative to get after
   to: 1600000000,
 });
-
 // This works with indicators
 
 TradingView.getIndicator('STD;Supertrend').then(async (indic) => {

@@ -71,11 +71,10 @@ class PinePermManager {
     try {
       const { data } = await axios.post(
         'https://www.tradingview.com/pine_perm/add/',
-        `pine_id=${
-          this.pineId.replace(/;/g, '%3B')
-        }&username_recip=${
-          username
-        }${
+        `pine_id=${this.pineId.replace(
+          /;/g,
+          '%3B',
+        )}&username_recip=${username}${
           expiration && expiration instanceof Date
             ? `&expiration=${expiration.toISOString()}`
             : ''
@@ -105,11 +104,10 @@ class PinePermManager {
     try {
       const { data } = await axios.post(
         'https://www.tradingview.com/pine_perm/modify_user_expiration/',
-        `pine_id=${
-          this.pineId.replace(/;/g, '%3B')
-        }&username_recip=${
-          username
-        }${
+        `pine_id=${this.pineId.replace(
+          /;/g,
+          '%3B',
+        )}&username_recip=${username}${
           expiration && expiration instanceof Date
             ? `&expiration=${expiration.toISOString()}`
             : ''
@@ -138,7 +136,10 @@ class PinePermManager {
     try {
       const { data } = await axios.post(
         'https://www.tradingview.com/pine_perm/remove/',
-        `pine_id=${this.pineId.replace(/;/g, '%3B')}&username_recip=${username}`,
+        `pine_id=${this.pineId.replace(
+          /;/g,
+          '%3B',
+        )}&username_recip=${username}`,
         {
           headers: {
             origin: 'https://www.tradingview.com',

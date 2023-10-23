@@ -4,8 +4,8 @@ const TradingView = require('../main');
  * This example creates a chart with all user's private indicators
  */
 
-if (!process.argv[2]) throw Error('Please specify your \'sessionid\' cookie');
-if (!process.argv[3]) throw Error('Please specify your \'signature\' cookie');
+if (!process.argv[2]) throw Error("Please specify your 'sessionid' cookie");
+if (!process.argv[3]) throw Error("Please specify your 'signature' cookie");
 
 const client = new TradingView.Client({
   token: process.argv[2],

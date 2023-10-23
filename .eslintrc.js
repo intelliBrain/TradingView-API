@@ -4,9 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 12,
@@ -23,5 +21,9 @@ module.exports = {
     'no-restricted-syntax': 'off',
     'no-await-in-loop': 'off',
     'no-continue': 'off',
+    'operator-linebreak': ['off', 'before'],
+    'implicit-arrow-linebreak': ['off', 'before'],
+    'valid-typeof': ['off'],
+    indent: ['off', 2],
   },
 };

@@ -19,7 +19,7 @@ const chartSessionGenerator = require('./chart/session');
  * @param {string} t Packet type
  * @param {string[]} p Packet data
  * @returns {void}
-*/
+ */
 
 /**
  * @typedef {Object} ClientBridge
@@ -159,19 +159,22 @@ module.exports = class Client {
 
     protocol.parseWSPacket(str).forEach((packet) => {
       if (global.TW_DEBUG) console.log('§90§30§107 CLIENT §0 PACKET', packet);
-      if (typeof packet === 'number') { // Ping
+      if (typeof packet === 'number') {
+        // Ping
         this.#ws.send(protocol.formatWSPacket(`~h~${packet}`));
         this.#handleEvent('ping', packet);
         return;
       }
 
-      if (packet.m === 'protocol_error') { // Error
+      if (packet.m === 'protocol_error') {
+        // Error
         this.#handleError('Client critical error:', packet.p);
         this.#ws.close();
         return;
       }
 
-      if (packet.m && packet.p) { // Normal packet
+      if (packet.m && packet.p) {
+        // Normal packet
         const parsed = {
           type: packet.m,
           data: packet.p,
@@ -226,29 +229,39 @@ module.exports = class Client {
     if (clientOptions.DEBUG) global.TW_DEBUG = clientOptions.DEBUG;
 
     const server = clientOptions.server || 'data';
-    this.#ws = new WebSocket(`wss://${server}.tradingview.com/socket.io/websocket?&type=chart`, {
-      origin: 'https://s.tradingview.com',
-    });
+    this.#ws = new WebSocket(
+      `wss://${server}.tradingview.com/socket.io/websocket?&type=chart`,
+      {
+        origin: 'https://s.tradingview.com',
+      },
+    );
 
     if (clientOptions.token) {
-      misc.getUser(
-        clientOptions.token,
-        clientOptions.signature ? clientOptions.signature : '',
-      ).then((user) => {
-        this.#sendQueue.unshift(protocol.formatWSPacket({
-          m: 'set_auth_token',
-          p: [user.authToken],
-        }));
-        this.#logged = true;
-        this.sendQueue();
-      }).catch((err) => {
-        this.#handleError('Credentials error:', err.message);
-      });
+      misc
+        .getUser(
+          clientOptions.token,
+          clientOptions.signature ? clientOptions.signature : '',
+        )
+        .then((user) => {
+          this.#sendQueue.unshift(
+            protocol.formatWSPacket({
+              m: 'set_auth_token',
+              p: [user.authToken],
+            }),
+          );
+          this.#logged = true;
+          this.sendQueue();
+        })
+        .catch((err) => {
+          this.#handleError('Credentials error:', err.message);
+        });
     } else {
-      this.#sendQueue.unshift(protocol.formatWSPacket({
-        m: 'set_auth_token',
-        p: ['unauthorized_user_token'],
-      }));
+      this.#sendQueue.unshift(
+        protocol.formatWSPacket({
+          m: 'set_auth_token',
+          p: ['unauthorized_user_token'],
+        }),
+      );
       this.#logged = true;
       this.sendQueue();
     }
